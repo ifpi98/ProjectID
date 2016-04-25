@@ -4,38 +4,59 @@ using System.IO;
 
 public class CharParser : MonoBehaviour
 {
+    string path;
+    public string[] _charData;
+    string[] _tempCD;
+    public string[,] _tempCD2 = new string[200, 15];
 
-    string m_strPath = "Assets/Resources/Datas";
-
-    public void WriteData(string strData)
+    void Start()
     {
 
-        FileStream f = new FileStream(m_strPath + "DataChar.txt", FileMode.Append, FileAccess.Write);
-        StreamWriter writer = new StreamWriter(f, System.Text.Encoding.Unicode);
-        writer.WriteLine(strData);
-        writer.Close();
+        path = "Assets/Resources/Datas/DataChar.txt";
+        _charData = System.IO.File.ReadAllLines(path);
+
+        if (_charData.Length > 0)
+        {
+            for (int i = 0; i < _charData.Length; i++)
+            {
+                //Debug.Log("Text : " + (i + 1).ToString() + "번째 줄.");
+                //Debug.Log(_charData[i]);
+            }
+        }
+
+        Debug.Log(_charData[_charData.Length - 1]);
+        //_tempUD2 = new string[_charData.Length, 14];
+        Parse();
+         
+
     }
 
     public void Parse()
     {
-        TextAsset data = Resources.Load("Data", typeof(TextAsset)) as TextAsset;
-        StringReader sr = new StringReader(data.text);
-
-        // 먼저 한줄을 읽는다. 
-
-        string source = sr.ReadLine();
-        string[] values;                // 쉼표로 구분된 데이터들을 저장할 배열 (values[0]이면 첫번째 데이터 )
 
 
-        while (source != null)
+        for (int i = 0; i < _charData.Length; i++)
         {
-            values = source.Split(',');  // 쉼표로 구분한다. 저장시에 쉼표로 구분하여 저장하였다.
-            if (values.Length == 0)
+
+            string source = _charData[i];
+            _tempCD = source.Split(',');
+
+            for (int y = 0; y < _tempCD.Length; y++)
             {
-                sr.Close();
-                return;
+                //Debug.Log(_tempCD.Length);
+                _tempCD2[i, y] = _tempCD[y];
+                //if (y == 13 && _tempCD[y] != "")
+                //{ Debug.Log(_tempCD[y]); }
+
             }
-            source = sr.ReadLine();    // 한줄 읽는다.
+
         }
+
+        //Debug.Log(_tempCD2[5, 11]);
+        //Debug.Log(_tempCD2[5, 12]);
+        //Debug.Log(_tempCD2[5, 13]);
     }
+
+
+
 }
