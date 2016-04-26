@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
+using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text;
+
 
 public class Game : MonoBehaviour {
 
     public int[] cardSlot;
+    //public int[] cardSlotXXXX;
     string cardSlot0;
     string cardSlot1;
     string cardSlot2;
@@ -19,6 +23,8 @@ public class Game : MonoBehaviour {
     bool secondcheck = false;
     Monster mon;
     int[,] unitArray;
+    public List<int> madeSlotList = new List<int>();
+
 
     // Use this for initialization
     void Start ()
@@ -49,13 +55,53 @@ public class Game : MonoBehaviour {
 
         if (secondcheck == false)
         {
-            
+
+            bool internalcheck = false;
+
             for (int i = 0; i < 5; i++)
             {
-                tempnum = Random.Range(1, mon.charcount);
+                tempnum = UnityEngine.Random.Range(1, mon.charcount);
+                //if (tempnum == 69)
+                //{
+                //    Debug.LogError("ERROR" + tempnum);
+                //}
+                //Debug.Log(tempnum);
                 //tempnum = i+1;
                 //Debug.Log(mon.charcount);
-                cardSlot[i] = tempnum;
+
+                for (int y = 0; y < 5; y++)
+                {
+                    if (tempnum == cardSlot[y])
+                    {
+                        //Debug.LogError(y + "aaa" + tempnum);
+                        cardSlot[i] = tempnum;
+                        i = i - 1;
+                        //Debug.Log(tempnum);
+                        //cardSlotXXXX = new int[5];
+                        //cardSlotXXXX = cardSlot;
+                        internalcheck = true;
+                        break;
+                    }
+                }
+
+                if (internalcheck == false)
+                {
+                    cardSlot[i] = tempnum;
+                }
+                internalcheck = false;
+                
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    if (cardSlot[i] == cardSlot[y] && i != y)
+                    {
+                        Debug.LogError("ERROR");
+                    }
+                }
+
             }
 
             cardSlot0 = mon.charData2[cardSlot[0], 1];
@@ -97,7 +143,9 @@ public class Game : MonoBehaviour {
                 {
                     //secondcheck = true;
                     Debug.Log(isSubset);
-                    Debug.LogError(i + 1);                    
+                    Debug.Log(i + 1);
+                    madeSlotList.Add(i + 1);
+
                 }
 
                 tempUnitList.Clear();
@@ -119,7 +167,8 @@ public class Game : MonoBehaviour {
     void OnGUI()
     {
         GUI.Button(new Rect(10, 10, 150, 100), cardSlot0 );
-        GUI.Button(new Rect(160, 10, 150, 100),cardSlot1);
+        GUI.Button(new Rect(160, 10, 150, 100),cardSlot1
+            );
         GUI.Button(new Rect(310, 10, 150, 100),cardSlot2);
         GUI.Button(new Rect(460, 10, 150, 100),cardSlot3);
         GUI.Button(new Rect(610, 10, 150, 100),cardSlot4);        
@@ -129,10 +178,30 @@ public class Game : MonoBehaviour {
         GUI.Button(new Rect(460, 120, 150, 50), "Remain Turn : " + remainturncardslot3);
         GUI.Button(new Rect(610, 120, 150, 50), "Remain Turn : " + remainturncardslot4);
 
-       
-        if (Input.GetKey(KeyCode.A) || GUI.Button(new Rect(310, 250, 150, 100), "restart!"))
+        if (madeSlotList.Count != 0)
         {
-            secondcheck = false;          
+            mon = GameObject.Find("GameObj").GetComponent<Monster>();
+            StringBuilder str = new StringBuilder();
+            str.Append(mon.unitData2[madeSlotList[0] + 1, 1]);
+            str.AppendLine();            
+            str.Append(mon.unitData2[madeSlotList[0] + 1, 9]);
+            str.AppendLine();
+            str.Append(mon.unitData2[madeSlotList[0] + 1, 10]);
+            str.AppendLine();
+            str.Append(mon.unitData2[madeSlotList[0] + 1, 11]);
+            str.AppendLine();
+            str.Append(mon.unitData2[madeSlotList[0] + 1, 12]);
+            str.AppendLine();
+            str.Append(mon.unitData2[madeSlotList[0] + 1, 13]);
+
+            //Debug.Log(mon.unitData2[madeSlotList[0] + 1, 1]);
+            //string aa = Convert.ToString(madeSlotList[0]);
+            GUI.Button(new Rect(285, 300, 200, 100), str.ToString());
+        }
+
+        if (Input.GetKey(KeyCode.A) || GUI.Button(new Rect(310, 200, 150, 100), "restart!"))
+        {
+            secondcheck = false;
         }
         //
         //        if (gameover == true && hp != 0)
