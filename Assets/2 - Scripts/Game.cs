@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
 
 public class Game : MonoBehaviour {
 
@@ -17,6 +18,7 @@ public class Game : MonoBehaviour {
     bool firstcheck = false;
     bool secondcheck = false;
     Monster mon;
+    int[,] unitArray;
 
     // Use this for initialization
     void Start ()
@@ -33,20 +35,29 @@ public class Game : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+
         if (firstcheck == false)
         {
             mon = GameObject.Find("GameObj").GetComponent<Monster>();
+            unitArray = new int[mon.charcount, 5];
+            unitArray = mon.unitData3;
+
             firstcheck = true;
         }
 
+        int tempnum;
+
         if (secondcheck == false)
         {
-            int tempnum;
+            
             for (int i = 0; i < 5; i++)
             {
-                tempnum = Random.RandomRange(0, mon.charcount);
+                tempnum = Random.Range(1, mon.charcount);
+                //tempnum = i+1;
+                //Debug.Log(mon.charcount);
                 cardSlot[i] = tempnum;
             }
+
             cardSlot0 = mon.charData2[cardSlot[0], 1];
             cardSlot1 = mon.charData2[cardSlot[1], 1];
             cardSlot2 = mon.charData2[cardSlot[2], 1];
@@ -57,10 +68,53 @@ public class Game : MonoBehaviour {
             //cardSlot3 = Random.RandomRange(0, mon.charcount);
             //cardSlot4 = Random.RandomRange(0, mon.charcount);
             secondcheck = true;
+
+            List<int> slotCardList = new List<int>();
+            List<int> tempUnitList = new List<int>();
+            //Debug.Log("initialize");
+
+            for (int i = 0; i < 5; i++)
+            { 
+                slotCardList.Add(cardSlot[i]);
+                //Debug.Log(slotCardList[i]);
+            }
+
+            for (int i = 0; i < mon.unitcount - 1; i++)
+            {
+                for (int y = 0; y < 5; y++)
+                {
+                    if (unitArray[i, y] == 0)
+                    {
+                        break;
+                    }
+                    tempUnitList.Add(unitArray[i, y]);
+                    //Debug.Log(unitArray[i, y]);
+                }
+
+                bool isSubset = !tempUnitList.Except(slotCardList).Any();
+
+                if (isSubset)
+                {
+                    //secondcheck = true;
+                    Debug.Log(isSubset);
+                    Debug.LogError(i + 1);                    
+                }
+
+                tempUnitList.Clear();
+
+                //Debug.Log("END");
+
+
+            }
+            slotCardList.Clear();
+            
         }
-        
+
 
     }
+
+   
+
 
     void OnGUI()
     {
@@ -75,6 +129,11 @@ public class Game : MonoBehaviour {
         GUI.Button(new Rect(460, 120, 150, 50), "Remain Turn : " + remainturncardslot3);
         GUI.Button(new Rect(610, 120, 150, 50), "Remain Turn : " + remainturncardslot4);
 
+       
+        if (Input.GetKey(KeyCode.A) || GUI.Button(new Rect(310, 250, 150, 100), "restart!"))
+        {
+            secondcheck = false;          
+        }
         //
         //        if (gameover == true && hp != 0)
         //        {

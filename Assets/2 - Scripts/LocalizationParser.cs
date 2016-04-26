@@ -24,7 +24,7 @@ public class LocalizationParser : MonoBehaviour
             }
         }
 
-        Debug.Log(_localizationData[_localizationData.Length - 1]);
+        //Debug.Log(_localizationData[_localizationData.Length - 1]);
         //_tempLD2 = new string[_localizationData.Length, 14];
         Parse();
 

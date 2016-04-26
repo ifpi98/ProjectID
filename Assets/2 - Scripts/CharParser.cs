@@ -24,7 +24,7 @@ public class CharParser : MonoBehaviour
             }
         }
 
-        Debug.Log(_charData[_charData.Length - 1]);
+        //Debug.Log(_charData[_charData.Length - 1]);
         //_tempUD2 = new string[_charData.Length, 14];
         Parse();
          

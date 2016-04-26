@@ -25,7 +25,7 @@ public class UnitParser : MonoBehaviour
             }
         }
 
-        Debug.Log(_unitData[_unitData.Length - 1]);
+        //Debug.Log(_unitData[_unitData.Length - 1]);
         //_tempUD2 = new string[_unitData.Length, 14];
         Parse();
 

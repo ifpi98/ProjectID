@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.IO;
+using System;
 
 public class Monster : MonoBehaviour
 {
 
     //public string[] unitData;
     public string[,] unitData2 = new string[200,15];
-    public string[,] charData2 = new string[200, 15];
+    public string[,] charData2 = new string[200,15];
     public string[,] locData2 = new string[400, 15];
+    public int[,] unitData3 = new int[200, 5];
     public int charcount;
     public int unitcount;
     public int loccount;
@@ -38,6 +38,19 @@ public class Monster : MonoBehaviour
         UnitParser Unit1 = this.GetComponent<UnitParser>();
         unitData2 = Unit1._tempUD2;
         unitcount = Unit1._unitData.Length;
+
+        for (int i = 1; i < unitcount; i++)
+        {
+            for (int y = 4; y < 9; y++)
+            {
+                if (unitData2[i, y] != "")
+                { 
+                    unitData3[i - 1, y - 4] = Convert.ToInt32(unitData2[i, y]);
+                }
+                //Debug.Log(unitData3[i - 1, y - 4]);
+            }
+        }
+        
         //Debug.Log(unitData2[1,1]);
         //Debug.Log(unitcount);
     }
