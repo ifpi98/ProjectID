@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using System.Text;
 
 
-public class Game : MonoBehaviour {
+public class Game : MonoBehaviour
+{
 
     public int[] cardSlot;
     //public int[] cardSlotXXXX;
@@ -21,13 +22,14 @@ public class Game : MonoBehaviour {
     int remainturncardslot4;
     bool firstcheck = false;
     bool secondcheck = false;
+    bool thirdcheck = false;
     Monster mon;
     int[,] unitArray;
     public List<int> madeSlotList = new List<int>();
 
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         remainturncardslot0 = 3;
         remainturncardslot1 = 3;
@@ -37,9 +39,10 @@ public class Game : MonoBehaviour {
         cardSlot = new int[5];
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
 
 
         if (firstcheck == false)
@@ -53,7 +56,7 @@ public class Game : MonoBehaviour {
 
         int tempnum;
 
-        if (secondcheck == false)
+        if (secondcheck == false && thirdcheck == false)
         {
 
             bool internalcheck = false;
@@ -89,7 +92,7 @@ public class Game : MonoBehaviour {
                     cardSlot[i] = tempnum;
                 }
                 internalcheck = false;
-                
+
             }
 
             for (int i = 0; i < 5; i++)
@@ -120,7 +123,7 @@ public class Game : MonoBehaviour {
             //Debug.Log("initialize");
 
             for (int i = 0; i < 5; i++)
-            { 
+            {
                 slotCardList.Add(cardSlot[i]);
                 //Debug.Log(slotCardList[i]);
             }
@@ -142,7 +145,7 @@ public class Game : MonoBehaviour {
                 if (isSubset)
                 {
                     //secondcheck = true;
-                    Debug.Log(isSubset);
+                    //Debug.Log(isSubset);
                     Debug.Log(i + 1);
                     madeSlotList.Add(i + 1);
 
@@ -155,23 +158,22 @@ public class Game : MonoBehaviour {
 
             }
             slotCardList.Clear();
-            
+
         }
 
 
     }
 
-   
+
 
 
     void OnGUI()
     {
-        GUI.Button(new Rect(10, 10, 150, 100), cardSlot0 );
-        GUI.Button(new Rect(160, 10, 150, 100),cardSlot1
-            );
-        GUI.Button(new Rect(310, 10, 150, 100),cardSlot2);
-        GUI.Button(new Rect(460, 10, 150, 100),cardSlot3);
-        GUI.Button(new Rect(610, 10, 150, 100),cardSlot4);        
+        GUI.Button(new Rect(10, 10, 150, 100), cardSlot0);
+        GUI.Button(new Rect(160, 10, 150, 100), cardSlot1);
+        GUI.Button(new Rect(310, 10, 150, 100), cardSlot2);
+        GUI.Button(new Rect(460, 10, 150, 100), cardSlot3);
+        GUI.Button(new Rect(610, 10, 150, 100), cardSlot4);
         GUI.Button(new Rect(10, 120, 150, 50), "Remain Turn : " + remainturncardslot0);
         GUI.Button(new Rect(160, 120, 150, 50), "Remain Turn : " + remainturncardslot1);
         GUI.Button(new Rect(310, 120, 150, 50), "Remain Turn : " + remainturncardslot2);
@@ -181,35 +183,146 @@ public class Game : MonoBehaviour {
         if (madeSlotList.Count != 0)
         {
             mon = GameObject.Find("GameObj").GetComponent<Monster>();
-            StringBuilder str = new StringBuilder();
-            str.Append(mon.unitData2[madeSlotList[0] + 1, 1]);
-            str.AppendLine();            
-            str.Append(mon.unitData2[madeSlotList[0] + 1, 9]);
-            str.AppendLine();
-            str.Append(mon.unitData2[madeSlotList[0] + 1, 10]);
-            str.AppendLine();
-            str.Append(mon.unitData2[madeSlotList[0] + 1, 11]);
-            str.AppendLine();
-            str.Append(mon.unitData2[madeSlotList[0] + 1, 12]);
-            str.AppendLine();
-            str.Append(mon.unitData2[madeSlotList[0] + 1, 13]);
+            StringBuilder str0 = new StringBuilder();
+            str0.Append(mon.unitData2[madeSlotList[0], 1]);
+            str0.AppendLine();
+            str0.Append(mon.unitData2[madeSlotList[0], 9]);
+            str0.AppendLine();
+            str0.Append(mon.unitData2[madeSlotList[0], 10]);
+            str0.AppendLine();
+            str0.Append(mon.unitData2[madeSlotList[0], 11]);
+            str0.AppendLine();
+            str0.Append(mon.unitData2[madeSlotList[0], 12]);
+            str0.AppendLine();
+            str0.Append(mon.unitData2[madeSlotList[0], 13]);
 
             //Debug.Log(mon.unitData2[madeSlotList[0] + 1, 1]);
             //string aa = Convert.ToString(madeSlotList[0]);
-            GUI.Button(new Rect(285, 300, 200, 100), str.ToString());
+            GUI.Button(new Rect(10, 300, 150, 100), str0.ToString());
         }
 
-        if (Input.GetKey(KeyCode.A) || GUI.Button(new Rect(310, 200, 150, 100), "restart!"))
+        if (madeSlotList.Count > 1)
         {
-            secondcheck = false;
+            mon = GameObject.Find("GameObj").GetComponent<Monster>();
+            StringBuilder str1 = new StringBuilder();
+            str1.Append(mon.unitData2[madeSlotList[1], 1]);
+            str1.AppendLine();
+            str1.Append(mon.unitData2[madeSlotList[1], 9]);
+            str1.AppendLine();
+            str1.Append(mon.unitData2[madeSlotList[1], 10]);
+            str1.AppendLine();
+            str1.Append(mon.unitData2[madeSlotList[1], 11]);
+            str1.AppendLine();
+            str1.Append(mon.unitData2[madeSlotList[1], 12]);
+            str1.AppendLine();
+            str1.Append(mon.unitData2[madeSlotList[1], 13]);
+
+            //Debug.Log(mon.unitData2[madeSlotList[0] + 1, 1]);
+            //string aa = Convert.ToString(madeSlotList[0]);
+            GUI.Button(new Rect(160, 300, 150, 100), str1.ToString());
         }
-        //
-        //        if (gameover == true && hp != 0)
-        //        {
-        //            if (GUI.Button(new Rect(10, 110, 200, 200), "Victory"))
-        //           {
-        //                Application.LoadLevel(Application.loadedLevel);
-        //            }
-        //        }
+
+        if (madeSlotList.Count > 2)
+        {
+            mon = GameObject.Find("GameObj").GetComponent<Monster>();
+            StringBuilder str2 = new StringBuilder();
+            str2.Append(mon.unitData2[madeSlotList[2], 1]);
+            str2.AppendLine();
+            str2.Append(mon.unitData2[madeSlotList[2], 9]);
+            str2.AppendLine();
+            str2.Append(mon.unitData2[madeSlotList[2], 10]);
+            str2.AppendLine();
+            str2.Append(mon.unitData2[madeSlotList[2], 11]);
+            str2.AppendLine();
+            str2.Append(mon.unitData2[madeSlotList[2], 12]);
+            str2.AppendLine();
+            str2.Append(mon.unitData2[madeSlotList[2], 13]);
+
+            //Debug.Log(mon.unitData2[madeSlotList[0] + 1, 1]);
+            //string aa = Convert.ToString(madeSlotList[0]);
+            GUI.Button(new Rect(310, 300, 150, 100), str2.ToString());                  
+
+        }
+
+        if (madeSlotList.Count > 3)
+        {
+            mon = GameObject.Find("GameObj").GetComponent<Monster>();
+            StringBuilder str3 = new StringBuilder();
+            str3.Append(mon.unitData2[madeSlotList[3], 1]);
+            str3.AppendLine();
+            str3.Append(mon.unitData2[madeSlotList[3], 9]);
+            str3.AppendLine();
+            str3.Append(mon.unitData2[madeSlotList[3], 10]);
+            str3.AppendLine();
+            str3.Append(mon.unitData2[madeSlotList[3], 11]);
+            str3.AppendLine();
+            str3.Append(mon.unitData2[madeSlotList[3], 12]);
+            str3.AppendLine();
+            str3.Append(mon.unitData2[madeSlotList[3], 13]);
+
+            //Debug.Log(mon.unitData2[madeSlotList[0] + 1, 1]);
+            //string aa = Convert.ToString(madeSlotList[0]);
+            GUI.Button(new Rect(460, 300, 150, 100), str3.ToString());
+
+        }
+
+        if (madeSlotList.Count > 4)
+        {
+            mon = GameObject.Find("GameObj").GetComponent<Monster>();
+            StringBuilder str4 = new StringBuilder();
+            str4.Append(mon.unitData2[madeSlotList[4], 1]);
+            str4.AppendLine();
+            str4.Append(mon.unitData2[madeSlotList[4], 9]);
+            str4.AppendLine();
+            str4.Append(mon.unitData2[madeSlotList[4], 10]);
+            str4.AppendLine();
+            str4.Append(mon.unitData2[madeSlotList[4], 11]);
+            str4.AppendLine();
+            str4.Append(mon.unitData2[madeSlotList[4], 12]);
+            str4.AppendLine();
+            str4.Append(mon.unitData2[madeSlotList[4], 13]);
+
+            //Debug.Log(mon.unitData2[madeSlotList[0] + 1, 1]);
+            //string aa = Convert.ToString(madeSlotList[0]);
+            GUI.Button(new Rect(610, 300, 150, 100), str4.ToString());
+
+        }
+
+        //if (madeSlotList.Count > 4)
+        //{
+        //     thirdcheck = true;
+            
+        //}
+
+        if (madeSlotList.Count > 5 && thirdcheck == false)
+        {
+            thirdcheck = true;
+            Debug.Log(madeSlotList.Count);
+            for (int i = 5; i < madeSlotList.Count; i++)
+            {
+                Debug.Log(mon.unitData2[madeSlotList[i], 1]);
+            }
+         
+        }
+
+        //if (Input.GetKey(KeyCode.A) || GUI.Button(new Rect(310, 200, 150, 100), "restart!"))
+        //{
+        if (thirdcheck == false)
+            {
+                madeSlotList.Clear();
+                secondcheck = false;
+            }
+        //}
+
+
+        if (thirdcheck == true)
+        {
+            if (GUI.Button(new Rect(500, 200, 150, 100), "Restart!"))
+            {
+                Application.LoadLevel(Application.loadedLevel);
+
+            }
+        }
+
     }
 }
