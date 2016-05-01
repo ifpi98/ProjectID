@@ -33,6 +33,8 @@ public class Game : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //Screen.SetResolution(Screen.width* 16 / 9, Screen.width , false);
+        //Screen.SetResolution(1280, 720, false);
         remainturncardslot = new int[5];
 
         for (int i = 0; i < 5; i++)
