@@ -7,10 +7,12 @@ public class Monster : MonoBehaviour
     //public string[] unitData;
     public string[,] unitData2 = new string[200,15];
     public string[,] charData2 = new string[200,15];
+    public string[,] expLvData2 = new string[200, 15];
     public string[,] locData2 = new string[400, 15];
     public int[,] unitData3 = new int[200, 5];
     public int charcount;
     public int unitcount;
+    public int expLvcount;
     public int loccount;
 
     // Use this for initialization
@@ -19,6 +21,7 @@ public class Monster : MonoBehaviour
 
         SetCharData();
         SetUnitData();
+        SetExpLvData();
         SetLocData();
 
     }
@@ -53,6 +56,15 @@ public class Monster : MonoBehaviour
         
         //Debug.Log(unitData2[1,1]);
         //Debug.Log(unitcount);
+    }
+
+    void SetExpLvData()
+    {
+        ExpLvParser ExpLv1 = this.GetComponent<ExpLvParser>();
+        expLvData2 = ExpLv1._tempED2;
+        expLvcount = ExpLv1._expLvData.Length;
+        //Debug.Log(charData2[1, 1]);
+        //Debug.Log(charcount);
     }
 
     void SetLocData()

@@ -46,6 +46,7 @@ public class Game : MonoBehaviour
         mon = GameObject.Find("GameObj").GetComponent<Monster>();
         unitArray = new int[mon.charcount, 5];
         unitArray = mon.unitData3;
+        Debug.Log("Level 1 exp : " + mon.expLvData2[2, 2]);
 
         checkremainTurncardslot = new bool[5];
 
@@ -298,7 +299,7 @@ public class Game : MonoBehaviour
             if (mon.unitData3[decideUnit, i] != 0)
             {
                 findMember.Add(mon.unitData3[decideUnit-1, i]);
-                Debug.Log(findMember[i]);                
+                //Debug.Log(findMember[i]);                
             }
             else
             {
@@ -315,7 +316,7 @@ public class Game : MonoBehaviour
                 if (findMember[i] == slotCardList[y])
                 {
                     findMemberplace.Add(y);                    
-                    Debug.Log("check : " + findMemberplace[i]);
+                    //Debug.Log("check : " + findMemberplace[i]);
                 }
                 
             }            
