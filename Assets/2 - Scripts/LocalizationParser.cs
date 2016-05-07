@@ -6,26 +6,28 @@ public class LocalizationParser : MonoBehaviour
 {
     string path;
     public string[] _localizationData;
+    public string[] sourceLocalization;
     string[] _tempLD;
     public string[,] _tempLD2 = new string[400, 15];
 
     void Start()
     {
 
-        path = "Assets/Resources/Datas/DataLocalization.txt";
-        _localizationData = System.IO.File.ReadAllLines(path);
+        TextAsset _locData0 = (TextAsset)Resources.Load("Datas/DataLocalization");
+        StringReader sr = new StringReader(_locData0.text);
 
-        if (_localizationData.Length > 0)
+        sourceLocalization = new string[200];
+
+        for (int i = 0; i < 200; i++)
         {
-            for (int i = 0; i < _localizationData.Length; i++)
+            sourceLocalization[i] = sr.ReadLine();
+            if (sourceLocalization[i] == null)
             {
-                //Debug.Log("Text : " + (i + 1).ToString() + "번째 줄.");
-                //Debug.Log(_localizationData[i]);
+                break;
             }
+            //Debug.Log(source1[i]);
         }
 
-        //Debug.Log(_localizationData[_localizationData.Length - 1]);
-        //_tempLD2 = new string[_localizationData.Length, 14];
         Parse();
 
 
@@ -33,30 +35,30 @@ public class LocalizationParser : MonoBehaviour
 
     public void Parse()
     {
+        _localizationData = new string[252];
 
 
-        for (int i = 0; i < _localizationData.Length; i++)
+        for (int i = 0; i < sourceLocalization.Length; i++)
         {
+            if (sourceLocalization[i] == null)
+            {
+                break;
+            }
 
-            string source = _localizationData[i];
+            _localizationData[i] = sourceLocalization[i];
+
+            string source = sourceLocalization[i];
             _tempLD = source.Split(',');
+            //Debug.Log(_tempCD[0]);
 
             for (int y = 0; y < _tempLD.Length; y++)
             {
-                //Debug.Log(_tempLD.Length);
                 _tempLD2[i, y] = _tempLD[y];
-                //if (y == 13 && _tempLD[y] != "")
-                //{ Debug.Log(_tempLD[y]); }
-
             }
 
         }
 
-        //Debug.Log(_tempLD2[5, 11]);
-        //Debug.Log(_tempLD2[5, 12]);
-        //Debug.Log(_tempLD2[5, 13]);
     }
-
 
 
 }

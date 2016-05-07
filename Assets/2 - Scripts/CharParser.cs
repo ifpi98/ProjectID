@@ -1,31 +1,34 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.IO;
+
 
 public class CharParser : MonoBehaviour
 {
-    string path;
+    string path;    
     public string[] _charData;
+    public string[] sourceChar;
     string[] _tempCD;
     public string[,] _tempCD2 = new string[200, 15];
 
     void Start()
     {
 
-        path = "Assets/Resources/Datas/DataChar.txt";
-        _charData = System.IO.File.ReadAllLines(path);
+        
+        TextAsset _charData0 = (TextAsset)Resources.Load("Datas/DataChar");
+        StringReader sr = new StringReader(_charData0.text);
 
-        if (_charData.Length > 0)
+        sourceChar = new string[200];
+        
+        for (int i = 0; i < 200; i++)
         {
-            for (int i = 0; i < _charData.Length; i++)
+            sourceChar[i] = sr.ReadLine();
+            if (sourceChar[i] == null)
             {
-                //Debug.Log("Text : " + (i + 1).ToString() + "번째 줄.");
-                //Debug.Log(_charData[i]);
+                break;
             }
+            //Debug.Log(source1[i]);
         }
-
-        //Debug.Log(_charData[_charData.Length - 1]);
-        //_tempUD2 = new string[_charData.Length, 14];
+        
         Parse();
          
 
@@ -33,30 +36,29 @@ public class CharParser : MonoBehaviour
 
     public void Parse()
     {
+        
+        _charData = new string[69];
 
-
-        for (int i = 0; i < _charData.Length; i++)
+  
+        for (int i = 0; i < sourceChar.Length; i++)
         {
+            if (sourceChar[i] == null)
+            {
+                break;
+            }
 
-            string source = _charData[i];
+            _charData[i] = sourceChar[i];
+
+            string source = sourceChar[i];
             _tempCD = source.Split(',');
+            //Debug.Log(_tempCD[0]);
 
             for (int y = 0; y < _tempCD.Length; y++)
             {
-                //Debug.Log(_tempCD.Length);
                 _tempCD2[i, y] = _tempCD[y];
-                //if (y == 13 && _tempCD[y] != "")
-                //{ Debug.Log(_tempCD[y]); }
-
             }
 
         }
 
-        //Debug.Log(_tempCD2[5, 11]);
-        //Debug.Log(_tempCD2[5, 12]);
-        //Debug.Log(_tempCD2[5, 13]);
     }
-
-
-
 }
