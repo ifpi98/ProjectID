@@ -37,7 +37,7 @@ public class CharParser : MonoBehaviour
     public void Parse()
     {
         
-        _charData = new string[69];
+        _charData = new string[72];
 
   
         for (int i = 0; i < sourceChar.Length; i++)
