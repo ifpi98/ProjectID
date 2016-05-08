@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Text;
 
@@ -11,13 +12,16 @@ public class GameGui : MonoBehaviour {
     string cardSlot2;
     string cardSlot3;
     string cardSlot4;
+    string finishWord;    
 
     void Start()
     {
         mon = GameObject.Find("GameObj").GetComponent<Monster>();
         game = GameObject.Find("GameObj").GetComponent<Game>();
+        finishWord = "";
     }
 
+   
     
         void OnGUI()
     {
@@ -54,7 +58,7 @@ public class GameGui : MonoBehaviour {
             //Debug.Log(mon.unitData2[game.madeSlotList[0] + 1, 1]);
             //string aa = Convert.ToString(game.madeSlotList[0]);
             GUI.color = Color.green;
-            if (GUI.Button(new Rect(10, 310, 770, 30), str0.ToString()))
+            if (GUI.Button(new Rect(10, 310, 750, 30), str0.ToString()))
             {                
                 game.score = game.score + 100;
                 game.PassTurnWithMake(game.madeSlotList[0]);
@@ -79,7 +83,7 @@ public class GameGui : MonoBehaviour {
 
             //Debug.Log(mon.unitData2[game.madeSlotList[0] + 1, 1]);
             //string aa = Convert.ToString(game.madeSlotList[0]);
-            if (GUI.Button(new Rect(10, 350, 770, 30), str1.ToString()))
+            if (GUI.Button(new Rect(10, 350, 750, 30), str1.ToString()))
             {
                 game.score = game.score + 100;
                 game.PassTurnWithMake(game.madeSlotList[1]);
@@ -104,7 +108,7 @@ public class GameGui : MonoBehaviour {
 
             //Debug.Log(mon.unitData2[game.madeSlotList[0] + 1, 1]);
             //string aa = Convert.ToString(game.madeSlotList[0]);
-            if (GUI.Button(new Rect(10, 390, 770, 30), str2.ToString()))
+            if (GUI.Button(new Rect(10, 390, 750, 30), str2.ToString()))
             {
                 game.score = game.score + 100;
                 game.PassTurnWithMake(game.madeSlotList[2]);
@@ -130,7 +134,7 @@ public class GameGui : MonoBehaviour {
 
             //Debug.Log(mon.unitData2[game.madeSlotList[0] + 1, 1]);
             //string aa = Convert.ToString(game.madeSlotList[0]);
-            if (GUI.Button(new Rect(10, 430, 770, 30), str3.ToString()))
+            if (GUI.Button(new Rect(10, 430, 750, 30), str3.ToString()))
             {
                 game.score = game.score + 100;
                 game.PassTurnWithMake(game.madeSlotList[3]);
@@ -156,7 +160,7 @@ public class GameGui : MonoBehaviour {
 
             //Debug.Log(mon.unitData2[game.madeSlotList[0] + 1, 1]);
             //string aa = Convert.ToString(game.madeSlotList[0]);
-            if (GUI.Button(new Rect(10, 470, 770, 30), str4.ToString()))
+            if (GUI.Button(new Rect(10, 470, 750, 30), str4.ToString()))
             {
                 game.score = game.score + 100;
                 game.PassTurnWithMake(game.madeSlotList[4]);
@@ -182,7 +186,7 @@ public class GameGui : MonoBehaviour {
 
             //Debug.Log(mon.unitData2[game.madeSlotList[0] + 1, 1]);
             //string aa = Convert.ToString(game.madeSlotList[0]);
-            if (GUI.Button(new Rect(10, 510, 770, 30), str5.ToString()))
+            if (GUI.Button(new Rect(10, 510, 750, 30), str5.ToString()))
             {
                 game.score = game.score + 100;
                 game.PassTurnWithMake(game.madeSlotList[5]);
@@ -230,7 +234,23 @@ public class GameGui : MonoBehaviour {
         }
 
         GUI.color = oldcolor;
-        GUI.Button(new Rect(100, 200, 150, 100), "Score : " + game.score +"\n Level : " + game.level);
+        int requireLevelup = Convert.ToInt32(mon.expLvData2[game.level + 1, 2]) - game.score;
+        
+        GUI.Button(new Rect(100, 200, 150, 100), "Score : " + game.score + " (" + requireLevelup + ") "+  "\n Level : " + game.level + "\n MaxCombo : " + game.maxCombo);
+
+        if (game.combocount != 0)
+        {
+            GUI.Button(new Rect(510, 200, 200, 100), "ComboCount : " + game.combocount + " " + finishWord);
+        }
+
+        if (game.madeSlotList.Count == 0)
+        {
+            finishWord = "Done!";
+        }
+        else
+        {
+            finishWord = "";
+        }
 
 
         if (game.thirdcheck == true)

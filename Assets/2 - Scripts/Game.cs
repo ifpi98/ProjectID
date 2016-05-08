@@ -29,7 +29,9 @@ public class Game : MonoBehaviour
     //public Texture tex1;
     public int score;
     public int level;
+    public int maxCombo;
     public List<int> slotCardList;
+    public int combocount = 0;
 
 
 
@@ -37,8 +39,11 @@ public class Game : MonoBehaviour
     void Start()
     {
         //Screen.SetResolution(Screen.width* 16 / 9, Screen.width , false);
-        //Screen.SetResolution(1280, 720, false);
+        //Screen.SetResolution(960, 720, false);
+        Screen.SetResolution(1152, 648, false);
+                
         remainturncardslot = new int[5];
+        maxCombo = 0;
 
         for (int i = 0; i < 5; i++)
         {
@@ -49,6 +54,7 @@ public class Game : MonoBehaviour
         DI = GameObject.Find("DataObj").GetComponent<DataIni>();
         score = DI.GetExp();
         level = DI.GetLV();
+        maxCombo = DI.GetMaxCombo();
         
         mon = GameObject.Find("GameObj").GetComponent<Monster>();
         unitArray = new int[mon.charcount, 5];
@@ -83,7 +89,7 @@ public class Game : MonoBehaviour
                         if (tempnumarray[i] == tempnumarray[y] || Convert.ToInt32(mon.charData2[tempnumarray[i], 2]) > level)
                         {
                             firstcheck = false;
-                            Debug.Log("CHECKING");
+                            //Debug.Log("CHECKING");
                             break;
                         }
 
@@ -100,7 +106,7 @@ public class Game : MonoBehaviour
 
         secondcheck = true;
         SlotCardMaKe();
-        
+                
 
     }
 
@@ -120,7 +126,7 @@ public class Game : MonoBehaviour
             checkExp();
             secondcheck = true;
         }
-
+                
 
     }
 
@@ -135,7 +141,7 @@ public class Game : MonoBehaviour
                 level = i-1;
                 if (firstcheck == true)
                 {
-                    DI.SetExpLv();
+                    DI.SetExpLvMC();
                 }                
                 break;
             }
@@ -146,6 +152,7 @@ public class Game : MonoBehaviour
 
     public void PassTurnWithoutMake(bool check0, bool check1, bool check2, bool check3, bool check4)
     {
+        combocount = 0;
 
         //bool internalcheck = false;
         bool[] checkIsExisted = new bool[5];
@@ -315,6 +322,13 @@ public class Game : MonoBehaviour
 
     public void PassTurnWithMake(int decideUnit)
     {
+        combocount = combocount + 1;
+
+        if (combocount > maxCombo)
+        {
+            maxCombo = combocount;
+        }
+
         List<int> findMember = new List<int>();
         List<int> findMemberplace = new List<int>();
         bool[] checkMakeUnitMemberplace = new bool[5];

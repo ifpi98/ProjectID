@@ -31,10 +31,11 @@ public class DataIni : MonoBehaviour {
 	}
         
 
-    public void SetExpLv()
+    public void SetExpLvMC()
     {
         pIDIni.SetInt("Exp", game.score);
-        pIDIni.SetInt("Level", game.level);        
+        pIDIni.SetInt("Level", game.level);
+        pIDIni.SetInt("MaxCombo", game.maxCombo);
 
         pIDIni.Save("ProjectID");
     }
@@ -43,6 +44,13 @@ public class DataIni : MonoBehaviour {
     {
         int exp = pIDIni.GetInt("Exp");        
         return exp;
+
+    }
+
+    public int GetMaxCombo()
+    {
+        int maxCombo = pIDIni.GetInt("MaxCombo");
+        return maxCombo;
 
     }
 
