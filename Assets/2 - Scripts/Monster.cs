@@ -29,7 +29,7 @@ public class Monster : MonoBehaviour
 
     void SetCharData()
     {
-        CharParser Char1 = this.GetComponent<CharParser>();
+        CharParser Char1 = GameObject.Find("DataObj").GetComponent<CharParser>();
         charData2 = Char1._tempCD2;
         charcount = Char1._charData.Length;
         //Debug.Log(charData2[1, 1]);
@@ -38,7 +38,7 @@ public class Monster : MonoBehaviour
 
     void SetUnitData()
     {
-        UnitParser Unit1 = this.GetComponent<UnitParser>();
+        UnitParser Unit1 = GameObject.Find("DataObj").GetComponent<UnitParser>();
         unitData2 = Unit1._tempUD2;
         unitcount = Unit1._unitData.Length;
 
@@ -60,7 +60,7 @@ public class Monster : MonoBehaviour
 
     void SetExpLvData()
     {
-        ExpLvParser ExpLv1 = this.GetComponent<ExpLvParser>();
+        ExpLvParser ExpLv1 = GameObject.Find("DataObj").GetComponent<ExpLvParser>();
         expLvData2 = ExpLv1._tempED2;
         expLvcount = ExpLv1._expLvData.Length;
         //Debug.Log(charData2[1, 1]);
@@ -69,7 +69,7 @@ public class Monster : MonoBehaviour
 
     void SetLocData()
     {
-        LocalizationParser Loc1 = this.GetComponent<LocalizationParser>();
+        LocalizationParser Loc1 = GameObject.Find("DataObj").GetComponent<LocalizationParser>();
         locData2 = Loc1._tempLD2;
         loccount = Loc1._localizationData.Length;
         //Debug.Log(locData2[1, 1]);
