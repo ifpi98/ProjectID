@@ -74,7 +74,7 @@ public class Game : MonoBehaviour
                 {
                     if (i != y)
                     {
-                        if (tempnumarray[i] == tempnumarray[y])
+                        if (tempnumarray[i] == tempnumarray[y] || Convert.ToInt32(mon.charData2[tempnumarray[i], 2]) > level)
                         {
                             firstcheck = false;
                             Debug.Log("CHECKING");
@@ -150,7 +150,7 @@ public class Game : MonoBehaviour
                 {
                     checkIsExisted[0] = false;
 
-                    if (tempnum == cardSlot[i])
+                    if (tempnum == cardSlot[i] || Convert.ToInt32(mon.charData2[tempnum, 2]) > level)
                     {
                         checkIsExisted[0] = true;
                         break;
@@ -171,7 +171,7 @@ public class Game : MonoBehaviour
                 {
                     checkIsExisted[1] = false;
 
-                    if (tempnum == cardSlot[i])
+                    if (tempnum == cardSlot[i] || Convert.ToInt32(mon.charData2[tempnum, 2]) > level)
                     {
                         checkIsExisted[1] = true;
                         break;
@@ -192,7 +192,7 @@ public class Game : MonoBehaviour
                 {
                     checkIsExisted[2] = false;
 
-                    if (tempnum == cardSlot[i])
+                    if (tempnum == cardSlot[i] || Convert.ToInt32(mon.charData2[tempnum, 2]) > level)
                     {
                         checkIsExisted[2] = true;
                         break;
@@ -213,7 +213,7 @@ public class Game : MonoBehaviour
                 {
                     checkIsExisted[3] = false;
 
-                    if (tempnum == cardSlot[i])
+                    if (tempnum == cardSlot[i] || Convert.ToInt32(mon.charData2[tempnum, 2]) > level)
                     {
                         checkIsExisted[3] = true;
                         break;
@@ -234,7 +234,7 @@ public class Game : MonoBehaviour
                 {
                     checkIsExisted[4] = false;
 
-                    if (tempnum == cardSlot[i])
+                    if (tempnum == cardSlot[i] || Convert.ToInt32(mon.charData2[tempnum, 2]) > level)
                     {
                         checkIsExisted[4] = true;
                         break;
@@ -371,7 +371,7 @@ public class Game : MonoBehaviour
                 {
                     checkIsExisted[0] = false;
 
-                    if (tempnum == cardSlot[i])
+                    if (tempnum == cardSlot[i] || Convert.ToInt32(mon.charData2[tempnum, 2]) > level)
                     {
                         checkIsExisted[0] = true;
                         break;
@@ -392,7 +392,7 @@ public class Game : MonoBehaviour
                 {
                     checkIsExisted[1] = false;
 
-                    if (tempnum == cardSlot[i])
+                    if (tempnum == cardSlot[i] || Convert.ToInt32(mon.charData2[tempnum, 2]) > level)
                     {
                         checkIsExisted[1] = true;
                         break;
@@ -413,7 +413,7 @@ public class Game : MonoBehaviour
                 {
                     checkIsExisted[2] = false;
 
-                    if (tempnum == cardSlot[i])
+                    if (tempnum == cardSlot[i] || Convert.ToInt32(mon.charData2[tempnum, 2]) > level)
                     {
                         checkIsExisted[2] = true;
                         break;
@@ -434,7 +434,7 @@ public class Game : MonoBehaviour
                 {
                     checkIsExisted[3] = false;
 
-                    if (tempnum == cardSlot[i])
+                    if (tempnum == cardSlot[i] || Convert.ToInt32(mon.charData2[tempnum, 2]) > level)
                     {
                         checkIsExisted[3] = true;
                         break;
@@ -455,7 +455,7 @@ public class Game : MonoBehaviour
                 {
                     checkIsExisted[4] = false;
 
-                    if (tempnum == cardSlot[i])
+                    if (tempnum == cardSlot[i] || Convert.ToInt32(mon.charData2[tempnum, 2]) > level)
                     {
                         checkIsExisted[4] = true;
                         break;
