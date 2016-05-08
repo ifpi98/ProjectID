@@ -8,7 +8,7 @@ using System.Text;
 public class Game : MonoBehaviour
 {
     int basicRemainTurn = 5;
-    
+
     public int[] cardSlot;
     public string cardSlot0;
     string cardSlot1;
@@ -17,18 +17,20 @@ public class Game : MonoBehaviour
     string cardSlot4;
     public int[] remainturncardslot;
     public bool[] checkremainTurncardslot;
-    public bool firstcheck = false;
+    bool firstcheck = false;
     public bool secondcheck = false;
     public bool thirdcheck = false;
+    DataIni DI;
     Monster mon;
     int[,] unitArray;
     public List<int> madeSlotList = new List<int>();
     int tempnum;
     int[] tempnumarray;
     //public Texture tex1;
-    public int score = 0;
-    public int level = 1;
+    public int score;
+    public int level;
     public List<int> slotCardList;
+
 
 
     // Use this for initialization
@@ -39,16 +41,19 @@ public class Game : MonoBehaviour
         remainturncardslot = new int[5];
 
         for (int i = 0; i < 5; i++)
-        {            
+        {
             remainturncardslot[i] = basicRemainTurn;
-        }        
+        }
         cardSlot = new int[5];
 
+        DI = GameObject.Find("DataObj").GetComponent<DataIni>();
+        score = DI.GetExp();
+        level = DI.GetLV();
+        
         mon = GameObject.Find("GameObj").GetComponent<Monster>();
         unitArray = new int[mon.charcount, 5];
         unitArray = mon.unitData3;
-        Debug.Log("Level 1 exp : " + mon.expLvData2[2, 2]);
-
+        
         checkremainTurncardslot = new bool[5];
 
         for (int i = 0; i < 5; i++)
@@ -57,13 +62,14 @@ public class Game : MonoBehaviour
         }
 
         tempnumarray = new int[5];
+        checkExp();
 
-        while (firstcheck== false)
-        { 
+        while (firstcheck == false)
+        {
             for (int i = 0; i < 5; i++)
             {
                 tempnum = UnityEngine.Random.Range(1, mon.charcount);
-                tempnumarray[i] = tempnum;           
+                tempnumarray[i] = tempnum;
             }
 
             firstcheck = true;
@@ -80,26 +86,25 @@ public class Game : MonoBehaviour
                             Debug.Log("CHECKING");
                             break;
                         }
-                        
+
                     }
                 }
             }
-            
+
         }
 
         for (int i = 0; i < 5; i++)
         {
             cardSlot[i] = tempnumarray[i];
         }
-        
+
         secondcheck = true;
         SlotCardMaKe();
-        checkExp();
+        
 
     }
 
  
-    
 
 
     // Update is called once per frame
@@ -128,8 +133,13 @@ public class Game : MonoBehaviour
             if (score < Convert.ToInt32(mon.expLvData2[i, 2]))
             {
                 level = i-1;
+                if (firstcheck == true)
+                {
+                    DI.SetExpLv();
+                }                
                 break;
             }
+
         }
     }
 

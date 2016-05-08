@@ -21,7 +21,7 @@ public class GameGui : MonoBehaviour {
     
         void OnGUI()
     {
-
+        var oldcolor = GUI.color;
         cardSlot0 = mon.charData2[game.cardSlot[0], 1];
         cardSlot1 = mon.charData2[game.cardSlot[1], 1];
         cardSlot2 = mon.charData2[game.cardSlot[2], 1];
@@ -53,8 +53,9 @@ public class GameGui : MonoBehaviour {
 
             //Debug.Log(mon.unitData2[game.madeSlotList[0] + 1, 1]);
             //string aa = Convert.ToString(game.madeSlotList[0]);
+            GUI.color = Color.green;
             if (GUI.Button(new Rect(10, 310, 770, 30), str0.ToString()))
-            {
+            {                
                 game.score = game.score + 100;
                 game.PassTurnWithMake(game.madeSlotList[0]);
             }
@@ -206,15 +207,29 @@ public class GameGui : MonoBehaviour {
 
         }
 
-        if (Input.GetKey(KeyCode.A) || GUI.Button(new Rect(310, 200, 150, 100), "restart!"))
+        if (game.checkremainTurncardslot[0] == false || game.remainturncardslot[0] == 0
+            || game.checkremainTurncardslot[1] == false || game.remainturncardslot[1] == 0
+            || game.checkremainTurncardslot[2] == false || game.remainturncardslot[2] == 0
+            || game.checkremainTurncardslot[3] == false || game.remainturncardslot[3] == 0
+            || game.checkremainTurncardslot[4] == false || game.remainturncardslot[4] == 0)
         {
-            if (game.thirdcheck == false)
+            GUI.color = oldcolor;
+            if (Input.GetKey(KeyCode.A) || GUI.Button(new Rect(280, 200, 200, 100), "Pass turn to Change Card!"))
             {
-                game.madeSlotList.Clear();
-                game.secondcheck = false;
+                if (game.thirdcheck == false)
+                {
+                    game.madeSlotList.Clear();
+                    game.secondcheck = false;
+                }
             }
         }
+        else
+        {
+            GUI.color = Color.red;
+            GUI.Button(new Rect(280, 200, 200, 100), "No Change, " + "Can`t Pass Turn");
+        }
 
+        GUI.color = oldcolor;
         GUI.Button(new Rect(100, 200, 150, 100), "Score : " + game.score +"\n Level : " + game.level);
 
 
@@ -227,12 +242,12 @@ public class GameGui : MonoBehaviour {
             }
         }
 
-        var oldcolor = GUI.color;
+        
 
 
         if (game.checkremainTurncardslot[0] == false || game.remainturncardslot[0] == 0)
         {
-            GUI.color = Color.red;
+            GUI.color = new Color32(255,127,0,255);
             if (GUI.Button(new Rect(10, 120, 150, 50), "Remain Turn : " + game.remainturncardslot[0]))
             {
                 game.checkremainTurncardslot[0] = !game.checkremainTurncardslot[0];
@@ -249,7 +264,7 @@ public class GameGui : MonoBehaviour {
 
         if (game.checkremainTurncardslot[1] == false || game.remainturncardslot[1] == 0)
         {
-            GUI.color = Color.red;
+            GUI.color = new Color32(255, 127, 0, 255);
             if (GUI.Button(new Rect(160, 120, 150, 50), "Remain Turn : " + game.remainturncardslot[1]))
             {
                 game.checkremainTurncardslot[1] = !game.checkremainTurncardslot[1];
@@ -266,7 +281,7 @@ public class GameGui : MonoBehaviour {
 
         if (game.checkremainTurncardslot[2] == false || game.remainturncardslot[2] == 0)
         {
-            GUI.color = Color.red;
+            GUI.color = new Color32(255, 127, 0, 255);
             if (GUI.Button(new Rect(310, 120, 150, 50), "Remain Turn : " + game.remainturncardslot[2]))
             {
                 game.checkremainTurncardslot[2] = !game.checkremainTurncardslot[2];
@@ -284,7 +299,7 @@ public class GameGui : MonoBehaviour {
 
         if (game.checkremainTurncardslot[3] == false || game.remainturncardslot[3] == 0)
         {
-            GUI.color = Color.red;
+            GUI.color = new Color32(255, 127, 0, 255);
             if (GUI.Button(new Rect(460, 120, 150, 50), "Remain Turn : " + game.remainturncardslot[3]))
             {
                 game.checkremainTurncardslot[3] = !game.checkremainTurncardslot[3];
@@ -301,7 +316,7 @@ public class GameGui : MonoBehaviour {
 
         if (game.checkremainTurncardslot[4] == false || game.remainturncardslot[4] == 0)
         {
-            GUI.color = Color.red;
+            GUI.color = new Color32(255, 127, 0, 255);
             if (GUI.Button(new Rect(610, 120, 150, 50), "Remain Turn : " + game.remainturncardslot[4]))
             {
                 game.checkremainTurncardslot[4] = !game.checkremainTurncardslot[4];
