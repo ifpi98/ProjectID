@@ -24,7 +24,7 @@ public class DataIni : MonoBehaviour {
         {
             mon = GameObject.Find("GameObj").GetComponent<Monster>();
             game = GameObject.Find("GameObj").GetComponent<Game>();
-            Debug.Log(game.score);
+            //Debug.Log(game.score);
             latestartcheck = true;
         }
 	
