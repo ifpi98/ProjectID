@@ -27,6 +27,7 @@ public class Game : MonoBehaviour
     int[] tempnumarray;
     //public Texture tex1;
     public int score = 0;
+    public int level = 1;
     public List<int> slotCardList;
 
 
@@ -93,6 +94,7 @@ public class Game : MonoBehaviour
         
         secondcheck = true;
         SlotCardMaKe();
+        checkExp();
 
     }
 
@@ -110,12 +112,26 @@ public class Game : MonoBehaviour
             PassTurnWithoutMake(checkremainTurncardslot[0], checkremainTurncardslot[1],checkremainTurncardslot[2],
                 checkremainTurncardslot[3],checkremainTurncardslot[4]);
             SlotCardMaKe();
+            checkExp();
             secondcheck = true;
         }
 
 
     }
-    
+
+
+
+    void checkExp()
+    {
+        for (int i = 1; i < mon.expLvcount; i++)
+        {
+            if (score < Convert.ToInt32(mon.expLvData2[i, 2]))
+            {
+                level = i-1;
+                break;
+            }
+        }
+    }
 
 
     public void PassTurnWithoutMake(bool check0, bool check1, bool check2, bool check3, bool check4)
@@ -448,10 +464,10 @@ public class Game : MonoBehaviour
             }
             cardSlot[4] = tempnum;
             remainturncardslot[4] = basicRemainTurn;
-        }       
-
+        }
+        checkExp();
     }
 
-
+    
 
 }
