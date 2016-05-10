@@ -36,6 +36,17 @@ public class DataIni : MonoBehaviour {
         pIDIni.SetInt("Exp", game.score);
         pIDIni.SetInt("Level", game.level);
         pIDIni.SetInt("MaxCombo", game.maxCombo);
+        pIDIni.SetInt("BasicRemainTurn", game.basicRemainTurn);
+
+        pIDIni.Save("ProjectID");
+    }
+
+    public void DataReset()
+    {
+        pIDIni.SetInt("Exp", 0);
+        pIDIni.SetInt("Level", 1);
+        pIDIni.SetInt("MaxCombo", 0);
+        pIDIni.SetInt("BasicRemainTurn", 5);
 
         pIDIni.Save("ProjectID");
     }
@@ -58,6 +69,13 @@ public class DataIni : MonoBehaviour {
     {
         int level = pIDIni.GetInt("Level");
         return level;
+    }
+
+    public int GetBasicRemainTurn()
+    {
+        int basicRemainTurn = pIDIni.GetInt("BasicRemainTurn");
+        return basicRemainTurn;
+
     }
 
 }

@@ -7,6 +7,7 @@ public class GameGui : MonoBehaviour {
 
     Monster mon;
     Game game;
+    DataIni DI;
     string cardSlot0;
     string cardSlot1;
     string cardSlot2;
@@ -18,6 +19,7 @@ public class GameGui : MonoBehaviour {
     {
         mon = GameObject.Find("GameObj").GetComponent<Monster>();
         game = GameObject.Find("GameObj").GetComponent<Game>();
+        DI = GameObject.Find("DataObj").GetComponent<DataIni>();
         finishWord = "";
     }
 
@@ -343,6 +345,45 @@ public class GameGui : MonoBehaviour {
         {
             GUI.color = Color.red;
             GUI.Button(new Rect(280, 200, 250, 100), "변경할 멤버를 고르세요.");
+        }
+
+        //if (Input.GetKey(KeyCode.E))
+        //{
+        //    game.score = game.score + 100;
+        //}
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            if (game.madeSlotList.Count != 0)
+            {
+                game.score = game.score + 100;
+                game.PassTurnWithMake(game.madeSlotList[0]);
+            }
+            else
+            {
+                game.checkremainTurncardslot[0] = false;
+                if (game.thirdcheck == false)
+                {
+                    game.madeSlotList.Clear();
+                    game.secondcheck = false;
+                }
+            }
+            
+        }
+
+        if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.Y))
+        {
+            DI.DataReset();
+            game.score = DI.GetExp();
+            game.level = DI.GetLV();
+            if (DI.GetBasicRemainTurn() != 0)
+            {
+                game.basicRemainTurn = DI.GetBasicRemainTurn();
+            }
+
+            game.maxCombo = DI.GetMaxCombo();
+            game.checkExp();
+            Debug.Log("Game Data Reset" + game.score);
         }
 
         GUI.color = oldcolor;

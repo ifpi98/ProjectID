@@ -6,7 +6,7 @@ public class ExpLvParser : MonoBehaviour
 {
     string path;
     public string[] _expLvData;
-    public string[] sourceExpLv;
+    string[] sourceExpLv;
     string[] _tempED;
     public string[,] _tempED2 = new string[200, 15];
 

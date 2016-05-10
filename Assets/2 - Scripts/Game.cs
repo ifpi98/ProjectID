@@ -7,7 +7,7 @@ using System.Text;
 
 public class Game : MonoBehaviour
 {
-    int basicRemainTurn = 5;
+    public int basicRemainTurn = 5;
 
     public int[] cardSlot;
     public string cardSlot0;
@@ -41,7 +41,23 @@ public class Game : MonoBehaviour
         //Screen.SetResolution(Screen.width* 16 / 9, Screen.width , false);
         //Screen.SetResolution(960, 720, false);
         Screen.SetResolution(1152, 648, false);
-                
+              
+        
+
+        DI = GameObject.Find("DataObj").GetComponent<DataIni>();
+        mon = GameObject.Find("GameObj").GetComponent<Monster>();
+
+        checkExp();
+
+        score = DI.GetExp();
+        level = DI.GetLV();
+        if (DI.GetBasicRemainTurn() != 0)
+        {
+            basicRemainTurn = DI.GetBasicRemainTurn();
+        }
+            
+        maxCombo = DI.GetMaxCombo();
+
         remainturncardslot = new int[5];
         maxCombo = 0;
 
@@ -50,13 +66,7 @@ public class Game : MonoBehaviour
             remainturncardslot[i] = basicRemainTurn;
         }
         cardSlot = new int[5];
-
-        DI = GameObject.Find("DataObj").GetComponent<DataIni>();
-        score = DI.GetExp();
-        level = DI.GetLV();
-        maxCombo = DI.GetMaxCombo();
-        
-        mon = GameObject.Find("GameObj").GetComponent<Monster>();
+                
         unitArray = new int[mon.charcount, 5];
         unitArray = mon.unitData3;
         
@@ -68,7 +78,7 @@ public class Game : MonoBehaviour
         }
 
         tempnumarray = new int[5];
-        checkExp();
+        
 
         while (firstcheck == false)
         {
@@ -132,13 +142,16 @@ public class Game : MonoBehaviour
 
 
 
-    void checkExp()
+    public void checkExp()
     {
         for (int i = 1; i < mon.expLvcount; i++)
         {
             if (score < Convert.ToInt32(mon.expLvData2[i, 2]))
             {
                 level = i-1;
+                basicRemainTurn = Convert.ToInt32(mon.expLvData2[i - 1, 4]);
+                //Debug.Log("Level = " +  mon.expLvData2[i - 1, 1]);
+                //Debug.Log("bRT = " + mon.expLvData2[i - 1, 4]);
                 if (firstcheck == true)
                 {
                     DI.SetExpLvMC();
@@ -305,7 +318,7 @@ public class Game : MonoBehaviour
             {
                 //secondcheck = true;
                 //Debug.Log(isSubset);
-                Debug.Log(i + 1);
+                Debug.Log(i + 1 + " : " + mon.unitData2[i+1,1]);
                 madeSlotList.Add(i + 1);
 
             }

@@ -6,7 +6,7 @@ public class CharParser : MonoBehaviour
 {
     string path;    
     public string[] _charData;
-    public string[] sourceChar;
+    string[] sourceChar;
     string[] _tempCD;
     public string[,] _tempCD2 = new string[200, 15];
 

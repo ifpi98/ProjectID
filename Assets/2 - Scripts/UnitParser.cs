@@ -6,7 +6,7 @@ public class UnitParser : MonoBehaviour
 {
     string path;
     public string[] _unitData;
-    public string[] sourceUnit;
+    string[] sourceUnit;
     string[] _tempUD;
     public string[,] _tempUD2 = new string[200, 15];
 

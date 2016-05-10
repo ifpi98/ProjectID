@@ -6,7 +6,7 @@ public class LocalizationParser : MonoBehaviour
 {
     string path;
     public string[] _localizationData;
-    public string[] sourceLocalization;
+    string[] sourceLocalization;
     string[] _tempLD;
     public string[,] _tempLD2 = new string[400, 15];
 
@@ -16,9 +16,9 @@ public class LocalizationParser : MonoBehaviour
         TextAsset _locData0 = (TextAsset)Resources.Load("Datas/DataLocalization");
         StringReader sr = new StringReader(_locData0.text);
 
-        sourceLocalization = new string[200];
+        sourceLocalization = new string[400];
 
-        for (int i = 0; i < 200; i++)
+        for (int i = 0; i < 400; i++)
         {
             sourceLocalization[i] = sr.ReadLine();
             if (sourceLocalization[i] == null)
